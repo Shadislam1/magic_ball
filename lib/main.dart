@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,20 +20,50 @@ void main() {
   );
 }
 
-class BallPage extends StatelessWidget {
+
+class BallPage extends StatefulWidget {
+ 
   const BallPage({super.key});
 
   @override
+  State<BallPage> createState() => _BallPageState();
+}
+
+class _BallPageState extends State<BallPage> {
+  int leftDiceNumbber =1;
+     int rightBallNum =1;
+
+     void changeBall(){
+
+       setState(() {
+                  rightBallNum = Random().nextInt(4)+1;
+                  leftDiceNumbber = Random().nextInt(4)+1;
+
+         });
+     }
+  @override
   Widget build(BuildContext context) {
+     
     return Center(
       child: Row(
         children: <Widget> [
          Expanded(
-        child:  Image.asset('images/ball1.png'),
+         child:  TextButton(
+          onPressed: () {
+          changeBall();
+            },
+          child: Image.asset('images/ball$leftDiceNumbber.png'),
+        ),
          ) ,
-         Expanded(
-        child:  Image.asset('images/ball2.png'),
-         ) ,
+        Expanded(
+         child:  TextButton(
+          onPressed: () { 
+            
+        changeBall();
+           },
+          child: Image.asset('images/ball$rightBallNum.png'),
+        ),
+        ),
         ],
       ),
     );
